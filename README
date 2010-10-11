@@ -1,0 +1,91 @@
+Algorithms
+-----------------------------
+
+1. Write code to find the second shortest path between two given nodes in an undirected graph.
+
+2. Partition an array in such a way that zeroes are move to the left side of the array
+   and all other numbers to the right side of the array. In-place only.
+
+3. Given an array of integers and another integer, determine if the array of integers
+   can be manipulated into equaling the second integer using standard math operations.
+
+4. Find integer pairs in an integer array so that they sum up to a specific number N.
+
+5. Write a function to reverse a string in-place.
+
+6. Print all the shortest paths in a grid (Cartesian), given the starting point
+   and ending point.
+
+7. Write a regular expression to match a machine's MAC address.
+
+8. Write an algorithm to test if N is a power of 2.
+    - N = 8 is a power of 2 (2^3)
+
+9. Given two numbers, X and Y, check if X is an integer power of Y.
+
+10. Write mergesort, quicksort, etc. on-the-fly.
+
+11. Given a set of shapes in 2D space and a coordinate pair, write a function
+    that returns true if any of the shapes overlap the coordinate pair.
+
+12. Given a matrix, print it clockwise from the first element to the very inner
+    element.
+    - Are the dimensions known / passed as arguments?
+    - Seems like graph traversal
+
+    [ ]->[ ]->[ ]
+               |
+               v
+    [ ]->[ ]->[ ]
+     ^         |
+     |         v
+    [ ]<-[ ]<-[ ]
+
+13. Write a function to merge two sorted arrays.
+
+14. Each key on a phone represents a set of letters. Given a phone number,
+    write a program to output all the possible strings the phone number represents.
+    - Permutations
+
+15. Given a string, remove all characters from the string that are present in another
+    string called 'filter'.
+    - Does this mean if any character is in filter it needs to be removed from source string?
+    - Or does it mean to remove substrings that match filter?
+
+16. Given two events, each with a start and end time, write a function that
+    returns true if the events overlap.
+
+Data Structures
+-----------------------------
+
+1. Give the size of the following struct:
+
+    struct {
+        char a, b;
+        int c;
+    };
+
+2. Reverse a singly-linked list
+
+3. Given a binary tree, print the nodes at each level.
+    - breadth-first search
+
+4. Graph theory; Write a function to check if a graph is bipartite (a bigraph).
+    - http://en.wikipedia.org/wiki/Bipartite_graph
+
+5. Given two binary trees, write a function that returns true if their elements are
+   the same, irrespective of the trees' structures.
+
+6. Implement a stack using a queue.
+
+Misc. Technical Questions
+-----------------------------
+
+1. How does an ethernet switch route?
+2. How would you sort one million integers?
+3. Describe the TCP handshake.
+4. How can multithreading help to make a process faster?
+5. A file contains 10 billion strings. You have N number of systems available.
+   How do you find duplicate strings?
+6. What is the running time of quicksort?
+7. What's the complexity of binary search?

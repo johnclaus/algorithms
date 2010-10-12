@@ -2,8 +2,6 @@
 #include <stdlib.h>
 
 void merge(int *arr, int p, int q, int r) {
-    printf("p = %d, q = %d, r = %d\n", p, q, r);
-
     int n1, n2, i, j, k;
     int *L, *R;
 

@@ -10,6 +10,7 @@ Algorithms
    can be manipulated into equaling the second integer using standard math operations.
 
 4. Find integer pairs in an integer array so that they sum up to a specific number N.
+    - c/find_int_pairs/main.c
 
 5. Write a function to reverse a string in-place.
 
@@ -23,7 +24,7 @@ Algorithms
 
 9. Given two numbers, X and Y, check if X is an integer power of Y.
 
-10. Write mergesort, quicksort, etc. on-the-fly.
+10. Write mergesort, quicksort, heapsort, etc. on-the-fly.
 
 11. Given a set of shapes in 2D space and a coordinate pair, write a function
     that returns true if any of the shapes overlap the coordinate pair.

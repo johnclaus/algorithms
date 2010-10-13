@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * Exercise: Rewrite merge so it doesn't use sentinels. Instead, it should stop once either
+ * array L or R has had all its elements copied back into A and then copying the remainder
+ * of the other array back into A.
+ */
+
 void merge(int *arr, int p, int q, int r) {
     int n1, n2, i, j, k;
     int *L, *R;

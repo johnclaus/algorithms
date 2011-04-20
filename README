@@ -3,16 +3,19 @@ Algorithms
 
 1. Write code to find the second shortest path between two given nodes in an undirected graph.
 
-2. Partition an array in such a way that zeroes are move to the left side of the array
+2. Partition an array in such a way that zeroes are moved to the left side of the array
    and all other numbers to the right side of the array. In-place only.
 
 3. Given an array of integers and another integer, determine if the array of integers
    can be manipulated into equaling the second integer using standard math operations.
+    - similar to subset sum problem
 
 4. Find integer pairs in an integer array so that they sum up to a specific number N.
     - c/find_int_pairs/main.c
 
 5. Write a function to reverse a string in-place.
+    - Write a function to reverse the words in a string in-place.
+    - c/strrev.c
 
 6. Print all the shortest paths in a grid (Cartesian), given the starting point
    and ending point.
@@ -23,6 +26,7 @@ Algorithms
     - N = 8 is a power of 2 (2^3)
 
 9. Given two numbers, X and Y, check if X is an integer power of Y.
+    - X = Y^n
 
 10. Write mergesort, quicksort, heapsort, etc. on-the-fly.
 
@@ -55,6 +59,31 @@ Algorithms
 
 16. Given two events, each with a start and end time, write a function that
     returns true if the events overlap.
+
+17. Write a backtracking algorithm to solve the n-queens problem.
+    - c/queens.c
+
+    n-queens problem: place n-queens in a nxn chess board so that they
+    can't attack eachother. Solution for 4-queens problem is below:
+
+    [ ] [X] [ ] [ ]
+
+    [ ] [ ] [ ] [X]
+
+    [X] [ ] [ ] [ ]
+
+    [ ] [ ] [X] [ ]
+
+18. Find the weighted midpoint of an array by the sum of two subsequences.
+    - split the array into two subsequences that have equal (or near-equal) sums
+      and print the midpoint value.
+    - c/mid.c
+
+19. Write an algorithm to generate all permutations of a string.
+    - c/permute.c uses the heap permute algorithm.
+
+20. Compute a^n for positive integer exponents.
+    - c/power.c
 
 Data Structures
 -----------------------------

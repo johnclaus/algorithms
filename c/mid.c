@@ -1,5 +1,7 @@
 /*
- * find the weighted midpoint of an array by the sum of a subset.
+ * find the weighted midpoint of an array by the sum of two subsequences.
+ * - split the array into two subsequences that have equal (or near-equal) sums and
+ *   print the midpoint value.
  */
 
 #include <stdio.h>

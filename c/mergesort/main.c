@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* implementation from intro to algorithms */
+
 /*
  * TODO: Rewrite merge so it doesn't use sentinels. Instead, it should stop once either
  * array L or R has had all its elements copied back into A and then copying the remainder

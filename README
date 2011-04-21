@@ -3,17 +3,18 @@ Algorithms
 
 1. Write code to find the second shortest path between two given nodes in an undirected graph.
 
-2. Partition an array in such a way that zeroes are moved to the left side of the array
+2. (solved) Partition an array in such a way that zeroes are moved to the left side of the array
    and all other numbers to the right side of the array. In-place only.
+    - c/lzero.c
 
 3. Given an array of integers and another integer, determine if the array of integers
    can be manipulated into equaling the second integer using standard math operations.
     - similar to subset sum problem
 
-4. Find integer pairs in an integer array so that they sum up to a specific number N.
+4. (solved) Find integer pairs in an integer array so that they sum up to a specific number N.
     - c/find_int_pairs/main.c
 
-5. Write a function to reverse a string in-place.
+5. (solved) Write a function to reverse a string in-place.
     - Write a function to reverse the words in a string in-place.
     - c/strrev.c
 
@@ -22,11 +23,15 @@ Algorithms
 
 7. Write a regular expression to match a machine's MAC address.
 
-8. Write an algorithm to test if N is a power of 2.
+8. (solved) Write an algorithm to test if N is a power of 2.
     - N = 8 is a power of 2 (2^3)
+    - log2n (binary logarithm) will do this. log2(8) == 3, pow(2, 3) == 8
+    - c/power_of_two.c
 
-9. Given two numbers, X and Y, check if X is an integer power of Y.
+9. (solved) Given two numbers, X and Y, check if X is an integer power of Y.
     - X = Y^n
+    - same idea has binary logarithm: logY(X) == n, pow(Y, n) == X
+    - c/power_of_two.c
 
 10. Write mergesort, quicksort, heapsort, etc. on-the-fly.
 
@@ -60,7 +65,7 @@ Algorithms
 16. Given two events, each with a start and end time, write a function that
     returns true if the events overlap.
 
-17. Write a backtracking algorithm to solve the n-queens problem.
+17. (solved) Write a backtracking algorithm to solve the n-queens problem.
     - c/queens.c
 
     n-queens problem: place n-queens in a nxn chess board so that they
@@ -74,16 +79,20 @@ Algorithms
 
     [ ] [ ] [X] [ ]
 
-18. Find the weighted midpoint of an array by the sum of two subsequences.
+18. (solved) Find the weighted midpoint of an array by the sum of two subsequences.
     - split the array into two subsequences that have equal (or near-equal) sums
       and print the midpoint value.
     - c/mid.c
 
-19. Write an algorithm to generate all permutations of a string.
+19. (solved) Write an algorithm to generate all permutations of a string.
     - c/permute.c uses the heap permute algorithm.
 
-20. Compute a^n for positive integer exponents.
+20. (solved) Compute a^n for positive integer exponents.
     - c/power.c
+
+21. Graph coloring problem
+    - assign the smallest number of colors to vertices of a graph
+      so that no two adjacent vertices are the same color.
 
 Data Structures
 -----------------------------

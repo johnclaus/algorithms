@@ -64,10 +64,13 @@ void MergeSort(int A[], int n) {
     /* Note the use of n-half when operating on C. This is important for
      * odd numbered arrays for getting the rest of the elements. */
     int half;
-    int B[8], C[8];
+    int *B, *C;
 
     if (n > 1) {
         half = n / 2;
+
+        B = (int *)malloc(sizeof(int)*half);
+        C = (int *)malloc(sizeof(int)*(n-half));
 
         copy(A, B, 0, half, 0, half);
         copy(A, C, half, n, 0, n-half);
@@ -76,16 +79,19 @@ void MergeSort(int A[], int n) {
         MergeSort(C, n-half);
 
         Merge(A, B, C, half, n-half);
+
+        free(B);
+        free(C);
     }
 }
 
 int main(int argc, char **argv) {
     int i;
-    int A[15] = {5, 3, 1, 9, 8, 2, 6, 10, 40, 32, 41, 13, 20, 7, 23};
+    int A[16] = {5, 4, 3, 1, 9, 8, 2, 6, 10, 40, 32, 41, 13, 20, 7, 23};
 
-    MergeSort(A, 15);
+    MergeSort(A, 16);
 
-    for (i = 0; i < 15; ++i) {
+    for (i = 0; i < 16; ++i) {
         printf("%d ", A[i]);
     }
     printf("\n");

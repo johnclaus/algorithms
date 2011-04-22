@@ -25,23 +25,23 @@
  *      // p is num elements in B, q is num elements in C
  *      if (i == p) {
  *          // B was exhausted, copy rest of C into A
- *          copy(C[j, .., q-1], A[k, .., p+q-1])
+ *          copy_subsequence(C[j, .., q-1], A[k, .., p+q-1])
  *      } else {
  *          // C was exhausted, copy rest of B into A
- *          copy(B[i, .., p-1], A[k, .., p+q-1])
+ *          copy_subsequence(B[i, .., p-1], A[k, .., p+q-1])
  *      }
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-void copy(int a[], int b[], int i, int p, int j, int q) {
+static void copy_subsequence(int a[], int b[], int i, int p, int j, int q) {
     while (i < p && j < q) {
         b[j++] = a[i++];
     }
 }
 
-void Merge(int A[], int B[], int C[], int p, int q) {
+static void merge_arrays(int A[], int B[], int C[], int p, int q) {
     int i, j, k;
     i = j = k = 0;
 
@@ -53,9 +53,9 @@ void Merge(int A[], int B[], int C[], int p, int q) {
     }
 
     if (i == p)
-        copy(C, A, j, q, k, p+q);
+        copy_subsequence(C, A, j, q, k, p+q);
     else
-        copy(B, A, i, p, k, p+q);
+        copy_subsequence(B, A, i, p, k, p+q);
 }
 
 void MergeSort(int A[], int n) {
@@ -70,13 +70,12 @@ void MergeSort(int A[], int n) {
         B = (int *)malloc(sizeof(int)*half);
         C = (int *)malloc(sizeof(int)*(n-half));
 
-        copy(A, B, 0, half, 0, half);
-        copy(A, C, half, n, 0, n-half);
+        copy_subsequence(A, B, 0, half, 0, half);
+        copy_subsequence(A, C, half, n, 0, n-half);
 
         MergeSort(B, half);
         MergeSort(C, n-half);
-
-        Merge(A, B, C, half, n-half);
+        merge_arrays(A, B, C, half, n-half);
 
         free(B);
         free(C);

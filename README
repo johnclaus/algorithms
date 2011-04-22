@@ -65,6 +65,7 @@ Algorithms
 
 16. Given two events, each with a start and end time, write a function that
     returns true if the events overlap.
+    - Facebook
 
 17. (solved) Write a backtracking algorithm to solve the n-queens problem.
     - c/queens.c
@@ -111,12 +112,16 @@ Algorithms
       so that no two adjacent vertices are the same color.
 
 22. Write an algorithm to detect the largest palindrome in a string.
-23. * Find intersection of two (unsorted) arrays.
+
+23. * Find intersection of two arrays.
+    - sorted and unsorted (separate problems)
+    - What if one array is larger than the other?
+
 24. Find a number in an array that's repeated an odd number of times.
 25. How to sort 100 million 10-bit integers.
 26. Given a reference to a node in a BST, find the immediate ancestor.
 27. How would you find duplicates in two unsorted integer arrays?
-28. Find second largest number in an array. Find the Nth largest number in an array.
+28. Find second largest number in an array. Find the n-th largest number in an array.
 29. Design a garbage collector.
     - how is garbage collection performed?
     - how to determine what is and isn't garbage?
@@ -125,6 +130,39 @@ Algorithms
 32. * Write a function to count the number of words in a string.
 34. * subset-sum problem
     - in linear time? is that a trick question?
+
+// Facebook
+35. multiply two very large numbers given as strings.
+    - return the product as a string.
+36. Write a function to calculate the square root of a number.
+37. Given a binary tree, write a function to find the length of the longest path in the tree.
+    - find minimum depth of BST
+38. Write binary search.
+39. Given an array of integers and a size, find 3 integers that sum to zero.
+    - explain brute force algorithm
+    - optimize the algorithm
+40. A file contains 10 billion strings. You have N machines available. Find duplicate strings.
+41. Given a set of integers, print out all its subsets.
+42. Print out all permutations of k numbers out of 1...N
+    - k = 2, N = 4, {12, 13, 14, 23, 24, 34}
+43. What's the complexity of binary search?
+44. Given the numbers 1 to 1000, what is the minimum numbers guesses needed to find a
+    specific number if you are given the hint "higher" or "lower" for each guess you make?
+    - binary search
+45. Given a large string, find a substring in it.
+46. Given a list of strings, find if each string has an anagram in the list.
+
+// Google
+47. Given two BSTs, write a function which tells if the two trees are the same.
+48. Reverse the bits in a 32-bit integer.
+49. Write a function to validate a BST.
+50. Find the common numbers in two text files.
+51. Set theory (union, intersection, etc).
+52. Find the median of a large set of numbers distributed over several machines in a network.
+53. Given a tree and a leaf node, write code to make the leaf node the root of the tree.
+54. Given a "window" of size k and an array of size N, find the minimum of each "window"
+    as it slides through the array.
+    - not sure what the goal is with this problem...
 
 Data Structures
 -----------------------------
@@ -149,6 +187,7 @@ Data Structures
    the same, irrespective of the trees' structures.
 
 6. Implement a stack using a queue.
+    - Facebook
 
 7. Hash tables.
     - How to avoid collision in a hash table?
@@ -160,6 +199,20 @@ Data Structures
     - write a function to parse that file and generate a binary tree from it.
 
 10. Determine the intersection point of two linked lists.
+
+// Facebook
+11. Print a binary tree in infix order. Recursive and iterative.
+12. Find the n-th smallest element in a binary tree.
+    - write a function to take a BST and a value k as input and have
+      it print the k-th smallest element in the BST.
+13. Write a function that takes a binary tree as input and have it perform in order
+    traversal - recursive and iterative.
+14. Print a binary search tree. Each level on a new line.
+
+// Google
+15. implement a priority queue
+    - insert, pop, update_priority
+16. traveling salesman problem.
 
 Misc. Technical Questions
 -----------------------------

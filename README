@@ -30,7 +30,7 @@ Algorithms
 
 9. (solved) Given two numbers, X and Y, check if X is an integer power of Y.
     - X = Y^n
-    - same idea has binary logarithm: logY(X) == n, pow(Y, n) == X
+    - same idea as binary logarithm: logY(X) == n, pow(Y, n) == X
     - c/power_of_two.c
 
 10. Write mergesort, quicksort, heapsort, etc. on-the-fly.

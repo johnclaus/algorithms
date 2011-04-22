@@ -67,6 +67,7 @@ void MergeSort(int A[], int n) {
     if (n > 1) {
         half = n / 2;
 
+        /* TODO: explore solutions to this algorithm without using malloc */
         B = (int *)malloc(sizeof(int)*half);
         C = (int *)malloc(sizeof(int)*(n-half));
 

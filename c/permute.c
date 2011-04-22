@@ -5,9 +5,10 @@
 #include <stdio.h>
 
 #define N 3
+#define PERMS 6
 static char A[N];
 /* 3! == 6 */
-static char perms[6][N];
+static char perms[PERMS][N];
 static int pcount = 0;
 
 void swap(char *a, int i, int j) {
@@ -45,14 +46,19 @@ void HeapPermute(int n) {
 }
 
 int main(int argc, char **argv) {
-    int i;
+    int i, j;
+
     for (i = 0; i < N; ++i) {
         A[i] = 'a' + i;
     }
 
     HeapPermute(N);
-    for (i = 0; i < 6; ++i) {
-        printf("%c%c%c\n", perms[i][0], perms[i][1], perms[i][2]);
+
+    for (i = 0; i < PERMS; ++i) {
+        for (j = 0; j < N; ++j) {
+            printf("%c", perms[i][j]);
+        }
+        printf("\n");
     }
     return 0;
 }

@@ -56,6 +56,21 @@ void delete(struct node_s **head, int value) {
     }
 }
 
+struct node_s *reverse(struct node_s *p) {
+    /* returns reversed linked list */
+    struct node_s *prev, *tmp;
+    prev = NULL;
+    while (p) {
+        /* note how correct order of operations uses the right-hand arg from previous line
+         * as the left-hand arg of next line. */
+        tmp = p->next;
+        p->next = prev;
+        prev = p;
+        p = tmp;
+    }
+    return prev;
+}
+
 int main(int argc, char **argv) {
     int i;
     struct node_s *head = NULL, *p, *q;
@@ -63,6 +78,8 @@ int main(int argc, char **argv) {
     for (i = 0; i < 10; ++i) {
         push(&head, i);
     }
+
+    head = reverse(head);
 
     delete(&head, 4);
     pushback(&head, 4);

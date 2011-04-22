@@ -40,6 +40,7 @@ Algorithms
 
 12. Given a matrix, print it clockwise from the first element to the very inner
     element.
+    - "spiral print a 2D array"
     - Are the dimensions known / passed as arguments?
     - Seems like graph traversal
 
@@ -94,6 +95,15 @@ Algorithms
     - assign the smallest number of colors to vertices of a graph
       so that no two adjacent vertices are the same color.
 
+22. Write an algorithm to detect the largest palindrome in a string.
+23. Find intersection of two arrays.
+24. Find a number in an array that's repeated an odd number of times.
+25. How to sort 100 million 10-bit integers.
+26. Given a reference to a node in a BST, find the immediate ancestor.
+27. How would you find duplicates in two unsorted integer arrays?
+28. Find second largest number in an array. Find the Nth largest number in an array.
+29. Design a garbage collector.
+
 Data Structures
 -----------------------------
 
@@ -122,6 +132,8 @@ Misc. Technical Questions
 
 1. How does an ethernet switch route?
 2. How would you sort one million integers?
+    - "external sorting"
+    - divide and conquer across multiple machines for large inputs.
 3. Describe the TCP handshake.
 4. How can multithreading help to make a process faster?
 5. A file contains 10 billion strings. You have N number of systems available.

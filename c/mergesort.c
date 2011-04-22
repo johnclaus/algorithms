@@ -35,10 +35,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void copy(int a[], int b[], int astart, int aend, int bstart, int bend) {
-    int i = astart, j = bstart;
-
-    while (i < aend && j < bend) {
+void copy(int a[], int b[], int i, int p, int j, int q) {
+    while (i < p && j < q) {
         b[j++] = a[i++];
     }
 }

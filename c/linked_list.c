@@ -61,7 +61,7 @@ struct node_s *reverse(struct node_s *p) {
     struct node_s *prev, *tmp;
     prev = NULL;
     while (p) {
-        /* note how correct order of operations uses the right-hand arg from previous line
+        /* note how the correct order of operations uses the right-hand arg from previous line
          * as the left-hand arg of next line. */
         tmp = p->next;
         p->next = prev;

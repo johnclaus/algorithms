@@ -7,15 +7,15 @@ Algorithms
    and all other numbers to the right side of the array. In-place only.
     - c/lzero.c
 
-3. Given an array of integers and another integer, determine if the array of integers
+3. * Given an array of integers and another integer, determine if the array of integers
    can be manipulated into equaling the second integer using standard math operations.
     - similar to subset sum problem
 
 4. (solved) Find integer pairs in an integer array so that they sum up to a specific number N.
     - c/find_int_pairs/main.c
 
-5. (solved) Write a function to reverse a string in-place.
-    - Write a function to reverse the words in a string in-place.
+5. (solved) Reverse a string in-place. "hello world" -> "dlrow olleh"
+    - Reverse a string's words. "hello world" -> "world hello"
     - c/strrev.c
 
 6. Print all the shortest paths in a grid (Cartesian), given the starting point
@@ -23,12 +23,12 @@ Algorithms
 
 7. Write a regular expression to match a machine's MAC address.
 
-8. (solved) Write an algorithm to test if N is a power of 2.
+8. * (solved) Write an algorithm to test if N is a power of 2.
     - N = 8 is a power of 2 (2^3)
     - log2n (binary logarithm) will do this. log2(8) == 3, pow(2, 3) == 8
     - c/power_of_two.c
 
-9. (solved) Given two numbers, X and Y, check if X is an integer power of Y.
+9. * (solved) Given two numbers, X and Y, check if X is an integer power of Y.
     - X = Y^n
     - same idea as binary logarithm: logY(X) == n, pow(Y, n) == X
     - c/power_of_two.c
@@ -38,7 +38,7 @@ Algorithms
 11. Given a set of shapes in 2D space and a coordinate pair, write a function
     that returns true if any of the shapes overlap the coordinate pair.
 
-12. Given a matrix, print it clockwise from the first element to the very inner
+12. * Given a matrix, print it clockwise from the first element to the very inner
     element.
     - "spiral print a 2D array"
     - Are the dimensions known / passed as arguments?
@@ -88,21 +88,43 @@ Algorithms
 19. (solved) Write an algorithm to generate all permutations of a string.
     - c/permute.c uses the heap permute algorithm.
 
-20. (solved) Compute a^n for positive integer exponents.
+20. * (solved) Compute a^n for positive integer exponents.
     - c/power.c
+    - basic idea is to keep multiplying a by itself n times.
+
+    int power(int a, int n) {
+        if (n == 1)
+            return a;
+        return a*power(a, n-1);
+    }
+
+    int power2(int a, int n) {
+        int i, res = a;
+        for (i = 1; i < n; ++i) {
+            res *= a;
+        }
+        return res;
+    }
 
 21. Graph coloring problem
     - assign the smallest number of colors to vertices of a graph
       so that no two adjacent vertices are the same color.
 
 22. Write an algorithm to detect the largest palindrome in a string.
-23. Find intersection of two arrays.
+23. * Find intersection of two (unsorted) arrays.
 24. Find a number in an array that's repeated an odd number of times.
 25. How to sort 100 million 10-bit integers.
 26. Given a reference to a node in a BST, find the immediate ancestor.
 27. How would you find duplicates in two unsorted integer arrays?
 28. Find second largest number in an array. Find the Nth largest number in an array.
 29. Design a garbage collector.
+    - how is garbage collection performed?
+    - how to determine what is and isn't garbage?
+30. Find a pythagorean triplet from an array
+31. fibonacci algorithm
+32. * Write a function to count the number of words in a string.
+34. * subset-sum problem
+    - in linear time? is that a trick question?
 
 Data Structures
 -----------------------------
@@ -118,6 +140,7 @@ Data Structures
 
 3. Given a binary tree, print the nodes at each level.
     - breadth-first search
+    - write a function to determine the height of the binary tree
 
 4. Graph theory; Write a function to check if a graph is bipartite (a bigraph).
     - http://en.wikipedia.org/wiki/Bipartite_graph
@@ -126,6 +149,17 @@ Data Structures
    the same, irrespective of the trees' structures.
 
 6. Implement a stack using a queue.
+
+7. Hash tables.
+    - How to avoid collision in a hash table?
+
+8. Implement a BST.
+    - how do you check if a binary tree is a binary search tree?
+
+9. Write a function that outputs the contents of a binary tree to a text file.
+    - write a function to parse that file and generate a binary tree from it.
+
+10. Determine the intersection point of two linked lists.
 
 Misc. Technical Questions
 -----------------------------

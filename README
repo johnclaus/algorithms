@@ -1,170 +1,107 @@
 Algorithms
 -----------------------------
 
-1. Write code to find the second shortest path between two given nodes in an undirected graph.
+SUBSET-SUM PROBLEMS
+-----------------------------
 
-2. (solved) Partition an array in such a way that zeroes are moved to the left side of the array
-   and all other numbers to the right side of the array. In-place only.
-    - c/lzero.c
+(c/find_int_pairs/main.c) Find integer pairs in an array that sum up to a specific number N.
 
-3. * Given an array of integers and another integer, determine if the array of integers
-   can be manipulated into equaling the second integer using standard math operations.
+(c/mid.c) Find the weighted midpoint of an array by the sum of two subsequences.
+    - split the array into two subsequences that have equal (or near-equal) sums
+      and print the midpoint value.
+
+Given an array of integers and another integer, determine if the array of integers
+can be manipulated into equaling the second integer using standard math operations.
     - similar to subset sum problem
 
-4. (solved) Find integer pairs in an integer array so that they sum up to a specific number N.
-    - c/find_int_pairs/main.c
+STRING / ARRAY MANIPULATION PROBLEMS
+-----------------------------
 
-5. (solved) Reverse a string in-place. "hello world" -> "dlrow olleh"
-    - Reverse a string's words. "hello world" -> "world hello"
-    - c/strrev.c
+(c/strrev.c) Reverse a string in-place. "hello world" -> "dlrow olleh"
+(c/strrev.c) Reverse a string's words in-place. "hello world" -> "world hello"
 
-6. Print all the shortest paths in a grid (Cartesian), given the starting point
-   and ending point.
+(c/lzero.c) Partition an array in such a way that zeroes are moved to the left side of the array
+            and all other numbers to the right side of the array. In-place only.
 
-7. Write a regular expression to match a machine's MAC address.
-
-8. * (solved) Write an algorithm to test if N is a power of 2.
-    - N = 8 is a power of 2 (2^3)
-    - log2n (binary logarithm) will do this. log2(8) == 3, pow(2, 3) == 8
-    - c/power_of_two.c
-
-9. * (solved) Given two numbers, X and Y, check if X is an integer power of Y.
-    - X = Y^n
-    - same idea as binary logarithm: logY(X) == n, pow(Y, n) == X
-    - c/power_of_two.c
-
-10. Write mergesort, quicksort, heapsort, etc. on-the-fly.
-
-11. Given a set of shapes in 2D space and a coordinate pair, write a function
-    that returns true if any of the shapes overlap the coordinate pair.
-
-12. * Given a matrix, print it clockwise from the first element to the very inner
-    element.
-    - "spiral print a 2D array"
-    - Are the dimensions known / passed as arguments?
-    - Seems like graph traversal
-
-    [ ]->[ ]->[ ]
-               |
-               v
-    [ ]->[ ]->[ ]
-     ^         |
-     |         v
-    [ ]<-[ ]<-[ ]
-
-13. Write a function to merge two sorted arrays.
-
-14. Each key on a phone represents a set of letters. Given a phone number,
-    write a program to output all the possible strings the phone number represents.
-    - Permutations
-
-15. Given a string, remove all characters from the string that are present in another
-    string called 'filter'.
+Given a string, remove all characters from the string that are present in another
+string called 'filter'.
     - Does this mean if any character is in filter it needs to be removed from source string?
     - Or does it mean to remove substrings that match filter?
 
-16. Given two events, each with a start and end time, write a function that
-    returns true if the events overlap.
-    - Facebook
+Write an algorithm to detect the largest palindrome in a string.
 
-17. (solved) Write a backtracking algorithm to solve the n-queens problem.
-    - c/queens.c
-
-    n-queens problem: place n-queens in a nxn chess board so that they
-    can't attack eachother. Solution for 4-queens problem is below:
-
-    [ ] [X] [ ] [ ]
-
-    [ ] [ ] [ ] [X]
-
-    [X] [ ] [ ] [ ]
-
-    [ ] [ ] [X] [ ]
-
-18. (solved) Find the weighted midpoint of an array by the sum of two subsequences.
-    - split the array into two subsequences that have equal (or near-equal) sums
-      and print the midpoint value.
-    - c/mid.c
-
-19. (solved) Write an algorithm to generate all permutations of a string.
-    - c/permute.c uses the heap permute algorithm.
-
-20. * (solved) Compute a^n for positive integer exponents.
-    - c/power.c
-    - basic idea is to keep multiplying a by itself n times.
-
-    int power(int a, int n) {
-        if (n == 1)
-            return a;
-        return a*power(a, n-1);
-    }
-
-    int power2(int a, int n) {
-        int i, res = a;
-        for (i = 1; i < n; ++i) {
-            res *= a;
-        }
-        return res;
-    }
-
-21. Graph coloring problem
-    - assign the smallest number of colors to vertices of a graph
-      so that no two adjacent vertices are the same color.
-
-22. Write an algorithm to detect the largest palindrome in a string.
-
-23. * Find intersection of two arrays.
+Find intersection of two arrays.
     - sorted and unsorted (separate problems)
     - What if one array is larger than the other?
 
-24. Find a number in an array that's repeated an odd number of times.
-25. How to sort 100 million 10-bit integers.
-26. Given a reference to a node in a BST, find the immediate ancestor.
-27. How would you find duplicates in two unsorted integer arrays?
-28. Find second largest number in an array. Find the n-th largest number in an array.
-29. Design a garbage collector.
-    - how is garbage collection performed?
-    - how to determine what is and isn't garbage?
-30. Find a pythagorean triplet from an array
-31. fibonacci algorithm
-32. * Write a function to count the number of words in a string.
-34. * subset-sum problem
-    - in linear time? is that a trick question?
+Find a number in an array that's repeated an odd number of times.
+How would you find duplicates in two unsorted integer arrays?
+Find second largest number in an array. Find the n-th largest number in an array.
+Find a pythagorean triplet from an array
+Write a function to count the number of words in a string.
 
-// Facebook
-35. multiply two very large numbers given as strings.
-    - return the product as a string.
-36. Write a function to calculate the square root of a number.
-37. Given a binary tree, write a function to find the length of the longest path in the tree.
-    - find minimum depth of BST
-38. Write binary search.
-39. Given an array of integers and a size, find 3 integers that sum to zero.
-    - explain brute force algorithm
-    - optimize the algorithm
-40. A file contains 10 billion strings. You have N machines available. Find duplicate strings.
-41. Given a set of integers, print out all its subsets.
-42. Print out all permutations of k numbers out of 1...N
-    - k = 2, N = 4, {12, 13, 14, 23, 24, 34}
-43. What's the complexity of binary search?
-44. Given the numbers 1 to 1000, what is the minimum numbers guesses needed to find a
-    specific number if you are given the hint "higher" or "lower" for each guess you make?
-    - binary search
-45. Given a large string, find a substring in it.
-46. Given a list of strings, find if each string has an anagram in the list.
+EXPONENT PROBLEMS (POWER-OF PROBLEMS)
+-----------------------------
 
-// Google
-47. Given two BSTs, write a function which tells if the two trees are the same.
-48. Reverse the bits in a 32-bit integer.
-49. Write a function to validate a BST.
-50. Find the common numbers in two text files.
-51. Set theory (union, intersection, etc).
-52. Find the median of a large set of numbers distributed over several machines in a network.
-53. Given a tree and a leaf node, write code to make the leaf node the root of the tree.
-54. Given a "window" of size k and an array of size N, find the minimum of each "window"
-    as it slides through the array.
-    - not sure what the goal is with this problem...
+(c/power.c) Compute a^n for positive integer exponents.
+    - basic idea is to keep multiplying a by itself n times.
 
-Data Structures
+    f(n) = a^n = { f(n-1) * a   if n > 1
+                   a            if n = 1 }
+
+(c/power_of_two.c) Write an algorithm to determine if an integer N is a power of 2.
+    - N = 8 is a power of 2 (2^3)
+    - log2n (binary logarithm) will do this. log2(8) == 3, pow(2, 3) == 8
+
+(c/power_of_two.c) Write an algorithm to determine if an integer X is a power of Y.
+    - X = Y^n
+    - same idea as binary logarithm: logY(X) == n, pow(Y, n) == X
+
+SORTING PROBLEMS
+-----------------------------
+
+(c/mergesort.c) Write mergesort, quicksort, heapsort, etc. on-the-fly.
+
+Write a function to merge two sorted arrays.
+
+PERMUTATIONS
+-----------------------------
+
+(c/permute.c) Write an algorithm to generate all permutations of a string.
+
+Each key on a phone represents a set of letters. Given a phone number,
+write a program to output all the possible strings the phone number represents.
+
+BACKTRACKING PROBLEMS
+-----------------------------
+
+(c/queens.c) Write a backtracking algorithm to solve the n-queens problem.
+        n-queens problem: place n-queens in a nxn chess board so that they
+        can't attack eachother. Solution for 4-queens problem is below:
+
+        [ ] [X] [ ] [ ]
+
+        [ ] [ ] [ ] [X]
+
+        [X] [ ] [ ] [ ]
+
+        [ ] [ ] [X] [ ]
+
+GRAPH PROBLEMS
+-----------------------------
+
+Write code to find the second shortest path between two given nodes in an undirected graph.
+
+Print all the shortest paths in a grid (Cartesian), given the starting point and ending point.
+
+Given a set of shapes in 2D space and a coordinate pair, write a function
+that returns true if any of the shapes overlap the coordinate pair.
+
+Graph coloring problem
+    - assign the smallest number of colors to vertices of a graph
+      so that no two adjacent vertices are the same color.
+
+DATA STRUCTURES
 -----------------------------
 
 1. Give the size of the following struct:
@@ -200,19 +137,70 @@ Data Structures
 
 10. Determine the intersection point of two linked lists.
 
-// Facebook
-11. Print a binary tree in infix order. Recursive and iterative.
-12. Find the n-th smallest element in a binary tree.
+11. Given a reference to a node in a BST, find the immediate ancestor.
+
+Google
+-----------------------------
+
+1. Given two BSTs, write a function which tells if the two trees are the same.
+2. Reverse the bits in a 32-bit integer.
+3. Write a function to validate a BST.
+4. Find the common numbers in two text files.
+5. Set theory (union, intersection, etc).
+6. Find the median of a large set of numbers distributed over several machines in a network.
+7. Given a tree and a leaf node, write code to make the leaf node the root of the tree.
+8. Given a "window" of size k and an array of size N, find the minimum of each "window"
+   as it slides through the array.
+    - not sure what the goal is with this problem...
+9. Given a matrix, print it clockwise from the first element to the very inner
+    element.
+    - "spiral print a 2D array"
+    - Are the dimensions known / passed as arguments?
+    - Seems like graph traversal
+
+    [ ]->[ ]->[ ]
+               |
+               v
+    [ ]->[ ]->[ ]
+     ^         |
+     |         v
+    [ ]<-[ ]<-[ ]
+
+10. implement a priority queue
+    - insert, pop, update_priority
+11. traveling salesman problem.
+
+Facebook
+-----------------------------
+
+1. multiply two very large numbers given as strings.
+    - return the product as a string.
+2. Write a function to calculate the square root of a number.
+3. Given a binary tree, write a function to find the length of the longest path in the tree.
+    - find minimum depth of BST
+4. Write binary search.
+5. Given an array of integers and a size, find 3 integers that sum to zero.
+    - explain brute force algorithm
+    - optimize the algorithm
+6. A file contains 10 billion strings. You have N machines available. Find duplicate strings.
+7. Given a set of integers, print out all its subsets.
+8. Print out all permutations of k numbers out of 1...N
+    - k = 2, N = 4, {12, 13, 14, 23, 24, 34}
+9. What's the complexity of binary search?
+10. Given the numbers 1 to 1000, what is the minimum numbers guesses needed to find a
+    specific number if you are given the hint "higher" or "lower" for each guess you make?
+    - binary search
+11. Given a large string, find a substring in it.
+12. Given a list of strings, find if each string has an anagram in the list.
+13. Given two events, each with a start and end time, write a function that
+    returns true if the events overlap.
+14. Print a binary tree in infix order. Recursive and iterative.
+15. Find the n-th smallest element in a binary tree.
     - write a function to take a BST and a value k as input and have
       it print the k-th smallest element in the BST.
-13. Write a function that takes a binary tree as input and have it perform in order
+16. Write a function that takes a binary tree as input and have it perform in order
     traversal - recursive and iterative.
-14. Print a binary search tree. Each level on a new line.
-
-// Google
-15. implement a priority queue
-    - insert, pop, update_priority
-16. traveling salesman problem.
+17. Print a binary search tree. Each level on a new line.
 
 Misc. Technical Questions
 -----------------------------

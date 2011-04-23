@@ -1,3 +1,8 @@
+/* stack.c
+ *
+ * This is a simple implementation of a stack using an array.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,6 +35,7 @@ static int pop(struct stack_s **stack) {
     --(*stack)->top;
     if ((*stack)->top < 0) {
         (*stack)->top = 0;
+        /* -1 isn't exactly intuitive if the stack actually contains a -1 */
         return -1;
     }
     return (*stack)->data[(*stack)->top];

@@ -22,11 +22,11 @@ static struct queue_s *create_queue(int N) {
     return q;
 }
 
-static int push(struct queue_s **q, int value) {
+static int enqueue(struct queue_s **q, int value) {
     if ((*q)->last >= (*q)->size)
         return -1;
 
-    /* last < 0 indicates an empty queue after popping all the elements */
+    /* last < 0 indicates an empty queue after dequeueping all the elements */
     if ((*q)->last < 0)
         (*q)->last = 0;
 
@@ -37,7 +37,7 @@ static int push(struct queue_s **q, int value) {
         (*q)->last = (*q)->size-1;
 }
 
-static int pop(struct queue_s **q) {
+static int dequeue(struct queue_s **q) {
     int res, i, j, tmp;
 
     if ((*q)->last < 0)
@@ -70,15 +70,15 @@ int main(int argc, char **argv) {
     q = create_queue(4);
 
     for (i = 0; i < 4; ++i)
-        push(&q, i);
+        enqueue(&q, i);
 
     for (i = 0; i < 4; ++i)
         printf("%d ", q->data[i]);
     printf("\n");
 
-    printf("%d, %d\n", pop(&q), q->last);
-    printf("%d, %d\n", pop(&q), q->last);
-    printf("%d, %d\n", pop(&q), q->last);
+    printf("%d, %d\n", dequeue(&q), q->last);
+    printf("%d, %d\n", dequeue(&q), q->last);
+    printf("%d, %d\n", dequeue(&q), q->last);
 
     for (i = 0; i <= q->last; ++i)
         printf("%d ", q->data[i]);

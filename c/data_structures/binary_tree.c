@@ -22,10 +22,18 @@ void push(struct stack_s **s, struct node_s *n) {
 }
 
 struct node_s *pop(struct stack_s **s) {
-    struct stack_s *p;
-    p = *s;
+    /* returns BST node pointed to by the top of the stack
+     * and frees the stack element */
+    struct stack_s *top;
+    struct node_s *n;
+
+    top = *s;
+    n = top->node;
     *s = (*s)->next;
-    return p->node;
+
+    free(top);
+
+    return n;
 }
 
 static struct node_s *new_node(int value) {
@@ -69,8 +77,6 @@ void inorder2(struct node_s *p) {
             }
         }
     }
-
-    free(stack);
 }
 
 void inorder(struct node_s *p) {
@@ -139,7 +145,6 @@ int main(int argc, char **argv) {
     postorder(root);
 
     destroy_bst(root);
-    free(root);
 
     return 0;
 }

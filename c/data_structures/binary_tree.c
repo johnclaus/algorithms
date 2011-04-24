@@ -93,6 +93,15 @@ void bst_postorder(struct bst_node_s *p) {
     }
 }
 
+struct bst_node_s *bst_search(struct bst_node_s *p, int k) {
+    if (!p || p->data == k)
+        return p;
+
+    if (k < p->data)
+        return bst_search(p->left, k);
+    return bst_search(p->right, k);
+}
+
 void bst_destroy(struct bst_node_s *p) {
     if (p) {
         bst_destroy(p->left);
@@ -122,17 +131,11 @@ int main(int argc, char **argv) {
     root->left->right = bst_new_node(5);
     root->left->right->parent = root->left;
 
-    printf("inorder:\n");
-    bst_inorder(root);
-
-    printf("inorder2:\n");
-    bst_inorder2(root);
-
-    printf("preorder:\n");
-    bst_preorder(root);
-
-    printf("postorder:\n");
-    bst_postorder(root);
+    struct bst_node_s *p = bst_search(root, 3);
+    if (p)
+        printf("%d\n", p->data);
+    else
+        printf("not found\n");
 
     bst_destroy(root);
 

@@ -8,23 +8,23 @@ struct bst_node_s {
     struct bst_node_s *right;
 };
 
-struct stack_s {
+struct stack_node_s {
     struct bst_node_s *node;
-    struct stack_s *next;
+    struct stack_node_s *next;
 };
 
-void push(struct stack_s **s, struct bst_node_s *n) {
-    struct stack_s *p;
-    p = (struct stack_s *)malloc(sizeof(struct stack_s));
+void push(struct stack_node_s **s, struct bst_node_s *n) {
+    struct stack_node_s *p;
+    p = (struct stack_node_s *)malloc(sizeof(struct stack_node_s));
     p->node = n;
     p->next = *s;
     *s = p;
 }
 
-struct bst_node_s *pop(struct stack_s **s) {
+struct bst_node_s *pop(struct stack_node_s **s) {
     /* returns BST node pointed to by the top of the stack
      * and frees the stack element */
-    struct stack_s *top;
+    struct stack_node_s *top;
     struct bst_node_s *n;
 
     top = *s;
@@ -56,7 +56,7 @@ void bst_inorder(struct bst_node_s *p) {
 /* implement an iterative inorder traversal algorithm */
 void bst_inorder2(struct bst_node_s *p) {
     struct bst_node_s *q;
-    struct stack_s *stack;
+    struct stack_node_s *stack;
 
     stack = NULL;
     q = p;

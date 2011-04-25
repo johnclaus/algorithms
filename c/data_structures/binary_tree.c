@@ -174,6 +174,8 @@ void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
     y = NULL;
     x = *T;
 
+    /* find a suitable position to insert z. after this loop,
+     * y is the parent of a suitable position. */
     while (x) {
         y = x;
         if (z->data < x->data)
@@ -182,15 +184,14 @@ void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
             x = x->right;
     }
 
+    /* do the actual insertion */
     z->parent = y;
-    if (!y) {
+    if (!y)
         *T = z;
-    } else {
-        if (z->data < y->data)
-            y->left = z;
-        else
-            y->right = z;
-    }
+    else if (z->data < y->data)
+        y->left = z;
+    else
+        y->right = z;
 }
 
 int main(int argc, char **argv) {

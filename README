@@ -137,8 +137,8 @@ DATA STRUCTURES
 
 10. Determine the intersection point of two linked lists.
 
-11. Given a reference to a node in a BST, find the immediate ancestor.
-    - don't BST nodes have a pointer to their parent?
+11. (c/data_structures/binary_tree.c) Given a reference to a node in a BST, find its successor.
+    - the successor of a node x is the node with the smallest key greater than key[x].
 
 Google
 -----------------------------

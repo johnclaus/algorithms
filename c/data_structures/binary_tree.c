@@ -42,6 +42,7 @@ static struct bst_node_s *bst_new_node(int value) {
     n->data = value;
     n->left = NULL;
     n->right = NULL;
+    n->parent = NULL;
     return n;
 }
 
@@ -110,32 +111,100 @@ void bst_destroy(struct bst_node_s *p) {
     }
 }
 
+struct bst_node_s *bst_minimum(struct bst_node_s *p) {
+    while (p->left)
+        p = p->left;
+    return p;
+}
+
+struct bst_node_s *bst_maximum(struct bst_node_s *p) {
+    while (p->right)
+        p = p->right;
+    return p;
+}
+
+struct bst_node_s *bst_minimum2(struct bst_node_s *p) {
+    /* recursive implementation */
+    if (!p->left)
+        return p;
+    return bst_minimum2(p->left);
+}
+
+struct bst_node_s *bst_maximum2(struct bst_node_s *p) {
+    /* recursive implementation */
+    if (!p->right)
+        return p;
+    return bst_maximum2(p->right);
+}
+
+struct bst_node_s *bst_successor(struct bst_node_s *p) {
+    struct bst_node_s *t;
+
+    if (p->right)
+        return bst_minimum(p->right);
+
+    t = p->parent;
+    while (t && p == t->right) {
+        p = t;
+        t = t->parent;
+    }
+
+    return t;
+}
+
+struct bst_node_s *bst_predecessor(struct bst_node_s *p) {
+    struct bst_node_s *t;
+
+    if (p->left)
+        return bst_maximum(p->left);
+
+    t = p->parent;
+    while (t && p == t->left) {
+        p = t;
+        t = t->parent;
+    }
+
+    return t;
+}
+
+void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
+    /* insert `z` into tree T */
+    struct bst_node_s *x, *y;
+
+    y = NULL;
+    x = *T;
+
+    while (x) {
+        y = x;
+        if (z->data < x->data)
+            x = x->left;
+        else
+            x = x->right;
+    }
+
+    z->parent = y;
+    if (!y) {
+        *T = z;
+    } else {
+        if (z->data < y->data)
+            y->left = z;
+        else
+            y->right = z;
+    }
+}
+
 int main(int argc, char **argv) {
     struct bst_node_s *root;
 
-    root = bst_new_node(5);
-    root->parent = NULL;
+    root = NULL;
 
-    root->left = bst_new_node(3);
-    root->left->parent = root;
-
-    root->right = bst_new_node(7);
-    root->right->parent = root;
-
-    root->left->left = bst_new_node(2);
-    root->left->left->parent = root->left;
-
-    root->right->right = bst_new_node(8);
-    root->right->right->parent = root->right;
-
-    root->left->right = bst_new_node(5);
-    root->left->right->parent = root->left;
-
-    struct bst_node_s *p = bst_search(root, 3);
-    if (p)
-        printf("%d\n", p->data);
-    else
-        printf("not found\n");
+    bst_insert(&root, bst_new_node(5));
+    bst_insert(&root, bst_new_node(3));
+    bst_insert(&root, bst_new_node(7));
+    bst_insert(&root, bst_new_node(2));
+    bst_insert(&root, bst_new_node(8));
+    bst_insert(&root, bst_new_node(4));
+    bst_preorder(root);
 
     bst_destroy(root);
 

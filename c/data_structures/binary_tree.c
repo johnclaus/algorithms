@@ -194,6 +194,39 @@ void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
         y->right = z;
 }
 
+struct bst_node_s *bst_delete(struct bst_node_s **T, struct bst_node_s *z) {
+    /* delete node `z` from BST tree T */
+    struct bst_node_s *x, *y;
+
+    y = NULL;
+    x = NULL;
+
+    if (!z->left || !z->right)
+        y = z;
+    else
+        y = bst_successor(z);
+
+    if (y->left)
+        x = y->left;
+    else
+        x = y->right;
+
+    if (x)
+        x->parent = y->parent;
+
+    if (!y->parent)
+        *T = x;
+    else if (y == y->parent->left)
+        y->parent->left = x;
+    else
+        y->parent->right = x;
+
+    if (y != z)
+        z->data = y->data;
+
+    return y;
+}
+
 int main(int argc, char **argv) {
     struct bst_node_s *root;
 
@@ -205,8 +238,14 @@ int main(int argc, char **argv) {
     bst_insert(&root, bst_new_node(2));
     bst_insert(&root, bst_new_node(8));
     bst_insert(&root, bst_new_node(4));
-    bst_preorder(root);
 
+    printf("Before:\n");
+    bst_inorder(root);
+    struct bst_node_s *n = bst_delete(&root, bst_search(root, 7));
+    printf("After:\n");
+    bst_inorder(root);
+
+    free(n);
     bst_destroy(root);
 
     return 0;

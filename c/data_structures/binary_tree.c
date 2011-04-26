@@ -167,6 +167,30 @@ struct bst_node_s *bst_predecessor(struct bst_node_s *p) {
     return t;
 }
 
+void bst_insert2(struct bst_node_s **T, struct bst_node_s *x, struct bst_node_s *z) {
+    /* recursive implementation of bst_insert */
+    struct bst_node_s *y = NULL;
+
+    if (x) {
+        y = x;
+        if (z->data < x->data) {
+            if (x->left)
+                return bst_insert2(T, x->left, z);
+        } else {
+            if (x->right)
+                return bst_insert2(T, x->right, z);
+        }
+    }
+
+    z->parent = y;
+    if (!y)
+        *T = z;
+    else if (z->data < y->data)
+        y->left = z;
+    else
+        y->right = z;
+}
+
 void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
     /* insert `z` into tree T */
     struct bst_node_s *x, *y;
@@ -232,12 +256,12 @@ int main(int argc, char **argv) {
 
     root = NULL;
 
-    bst_insert(&root, bst_new_node(5));
-    bst_insert(&root, bst_new_node(3));
-    bst_insert(&root, bst_new_node(7));
-    bst_insert(&root, bst_new_node(2));
-    bst_insert(&root, bst_new_node(8));
-    bst_insert(&root, bst_new_node(4));
+    bst_insert2(&root, root, bst_new_node(5));
+    bst_insert2(&root, root, bst_new_node(3));
+    bst_insert2(&root, root, bst_new_node(7));
+    bst_insert2(&root, root, bst_new_node(2));
+    bst_insert2(&root, root, bst_new_node(8));
+    bst_insert2(&root, root, bst_new_node(4));
 
     printf("Before:\n");
     bst_inorder(root);

@@ -169,11 +169,19 @@ static void BFS(struct graph_s *graph, int s) {
         graph->colors[u] = BLACK;
     }
 
-    for (i = 0; i < N; ++i)
-        printf("%d\n", graph->distances[i]);
-
     free(Q->data);
     free(Q);
+}
+
+static void print_path(struct graph_s *graph, int s, int v) {
+    if (s == v)
+        printf("%d\n", s);
+    else if (graph->predecessors[v] == -1)
+        printf("no path from s to v\n");
+    else {
+        print_path(graph, s, graph->predecessors[v]);
+        printf("%d\n", v);
+    }
 }
 
 static void cleanup(void) {
@@ -194,6 +202,7 @@ static void cleanup(void) {
 int main(int argc, char **argv) {
     graph_init();
     BFS(graph, 1);
+    print_path(graph, 1, 7);
     cleanup();
 
     return 0;

@@ -6,9 +6,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define WHITE 0
+#define GRAY 1
+#define BLACK 2
+#define N 8
+
 struct vertex_s {
     int *adj;
     int size;
+};
+
+struct graph_s {
+    struct vertex_s **vertices;
+    int *colors;
+    int *distances;
+    int *predecessors;
 };
 
 struct queue_s {
@@ -18,16 +30,8 @@ struct queue_s {
     int size;
 };
 
-#define WHITE 0
-#define GRAY 1
-#define BLACK 2
-#define N 8
-
-static struct vertex_s *graph[N];
-static int colors[N];
-static int distances[N];
-static int predecessors[N];
 static struct queue_s *Q;
+static struct graph_s *graph;
 
 static struct queue_s *create_queue(int n) {
     struct queue_s *q;
@@ -69,110 +73,123 @@ void graph_init(void) {
      * 4     5 --- 6 --- 7
      */
 
+    graph = (struct graph_s *)malloc(sizeof(struct graph_s));
+    graph->vertices = (struct vertex_s **)malloc(sizeof(struct vertex_s)*N);
+    graph->colors = (int *)malloc(sizeof(int)*N);
+    graph->distances = (int *)malloc(sizeof(int)*N);
+    graph->predecessors = (int *)malloc(sizeof(int)*N);
+
     int n = 2;
-    graph[0] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[0]->adj = (int *)malloc(sizeof(int)*n);
-    graph[0]->size = n;
-    graph[0]->adj[0] = 1;
-    graph[0]->adj[1] = 4;
+    graph->vertices[0] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[0]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[0]->size = n;
+    graph->vertices[0]->adj[0] = 1;
+    graph->vertices[0]->adj[1] = 4;
 
     n = 2;
-    graph[1] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[1]->adj = (int *)malloc(sizeof(int)*n);
-    graph[1]->size = n;
-    graph[1]->adj[0] = 0;
-    graph[1]->adj[1] = 5;
+    graph->vertices[1] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[1]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[1]->size = n;
+    graph->vertices[1]->adj[0] = 0;
+    graph->vertices[1]->adj[1] = 5;
 
     n = 3;
-    graph[2] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[2]->adj = (int *)malloc(sizeof(int)*n);
-    graph[2]->size = n;
-    graph[2]->adj[0] = 3;
-    graph[2]->adj[1] = 6;
-    graph[2]->adj[2] = 5;
+    graph->vertices[2] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[2]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[2]->size = n;
+    graph->vertices[2]->adj[0] = 3;
+    graph->vertices[2]->adj[1] = 6;
+    graph->vertices[2]->adj[2] = 5;
 
     n = 3;
-    graph[3] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[3]->adj = (int *)malloc(sizeof(int)*n);
-    graph[3]->size = n;
-    graph[3]->adj[0] = 2;
-    graph[3]->adj[1] = 6;
-    graph[3]->adj[2] = 7;
+    graph->vertices[3] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[3]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[3]->size = n;
+    graph->vertices[3]->adj[0] = 2;
+    graph->vertices[3]->adj[1] = 6;
+    graph->vertices[3]->adj[2] = 7;
 
     n = 1;
-    graph[4] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[4]->adj = (int *)malloc(sizeof(int)*n);
-    graph[4]->size = n;
-    graph[4]->adj[0] = 0;
+    graph->vertices[4] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[4]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[4]->size = n;
+    graph->vertices[4]->adj[0] = 0;
 
     n = 3;
-    graph[5] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[5]->adj = (int *)malloc(sizeof(int)*n);
-    graph[5]->size = n;
-    graph[5]->adj[0] = 1;
-    graph[5]->adj[1] = 2;
-    graph[5]->adj[2] = 6;
+    graph->vertices[5] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[5]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[5]->size = n;
+    graph->vertices[5]->adj[0] = 1;
+    graph->vertices[5]->adj[1] = 2;
+    graph->vertices[5]->adj[2] = 6;
 
     n = 4;
-    graph[6] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[6]->adj = (int *)malloc(sizeof(int)*n);
-    graph[6]->size = n;
-    graph[6]->adj[0] = 5;
-    graph[6]->adj[1] = 2;
-    graph[6]->adj[2] = 7;
-    graph[6]->adj[3] = 3;
+    graph->vertices[6] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[6]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[6]->size = n;
+    graph->vertices[6]->adj[0] = 5;
+    graph->vertices[6]->adj[1] = 2;
+    graph->vertices[6]->adj[2] = 7;
+    graph->vertices[6]->adj[3] = 3;
 
     n = 2;
-    graph[7] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
-    graph[7]->adj = (int *)malloc(sizeof(int)*n);
-    graph[7]->size = n;
-    graph[7]->adj[0] = 3;
-    graph[7]->adj[1] = 6;
+    graph->vertices[7] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+    graph->vertices[7]->adj = (int *)malloc(sizeof(int)*n);
+    graph->vertices[7]->size = n;
+    graph->vertices[7]->adj[0] = 3;
+    graph->vertices[7]->adj[1] = 6;
 }
 
-void BFS(struct vertex_s *graph[], int s) {
+void BFS(struct graph_s *graph, int s) {
     /* assumes graph is an adjacency list */
     int i, u, v;
 
     Q = create_queue(N);
 
     for (i = 0; i < N; ++i) {
-        colors[i] = WHITE;
-        distances[i] = 0;
-        predecessors[i] = -1;
+        graph->colors[i] = WHITE;
+        graph->distances[i] = 0;
+        graph->predecessors[i] = -1;
     }
 
-    colors[s] = GRAY;
+    graph->colors[s] = GRAY;
     enqueue(Q, s);
 
     while (!is_empty(Q)) {
         u = dequeue(Q);
-        for (i = 0; i < graph[u]->size; ++i) {
-            v = graph[u]->adj[i];
-            if (colors[v] == WHITE) {
-                colors[v] = GRAY;
-                distances[v] = distances[u]+1;
-                predecessors[v] = u;
+        for (i = 0; i < graph->vertices[u]->size; ++i) {
+            v = graph->vertices[u]->adj[i];
+            if (graph->colors[v] == WHITE) {
+                graph->colors[v] = GRAY;
+                graph->distances[v] = graph->distances[u]+1;
+                graph->predecessors[v] = u;
                 enqueue(Q, v);
             }
         }
     }
-    colors[u] = BLACK;
+    graph->colors[u] = BLACK;
     for (i = 0; i < N; ++i)
-        printf("%d\n", distances[i]);
+        printf("%d\n", graph->distances[i]);
 }
 
 int main(int argc, char **argv) {
     int i;
     graph_init();
     BFS(graph, 1);
+
     free(Q->data);
     free(Q);
 
     for (i = 0; i < N; ++i) {
-        free(graph[i]->adj);
-        free(graph[i]);
+        free(graph->vertices[i]->adj);
+        free(graph->vertices[i]);
     }
+
+    free(graph->vertices);
+    free(graph->colors);
+    free(graph->distances);
+    free(graph->predecessors);
+    free(graph);
 
     return 0;
 }

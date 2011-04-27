@@ -166,8 +166,9 @@ static void BFS(struct graph_s *graph, int s) {
                 enqueue(Q, v);
             }
         }
+        graph->colors[u] = BLACK;
     }
-    graph->colors[u] = BLACK;
+
     for (i = 0; i < N; ++i)
         printf("%d\n", graph->distances[i]);
 

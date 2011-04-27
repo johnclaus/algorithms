@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     int i, cur, tmp;
     int a[10] = {1, 2, 0, 3, 0, 5, 6, 0, 10, 0};
 
-    cur = 0;
+    cur = 0; /* index where a 0 should be placed */
     for (i = 0; i < 10; ++i) {
         if (a[i] == 0) {
             tmp = a[cur];

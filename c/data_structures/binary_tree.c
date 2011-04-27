@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX(a, b) ((a > b) ? (a) : (b))
+
 struct bst_node_s {
     int data;
     struct bst_node_s *parent;
@@ -76,6 +78,12 @@ void bst_inorder2(struct bst_node_s *p) {
             }
         }
     }
+}
+
+int bst_height(struct bst_node_s *p) {
+    if (!p)
+        return -1;
+    return MAX(bst_height(p->left), bst_height(p->right)) + 1;
 }
 
 void bst_preorder(struct bst_node_s *p) {
@@ -211,7 +219,7 @@ void bst_insert(struct bst_node_s **T, struct bst_node_s *z) {
     /* do the actual insertion */
     z->parent = y;
     if (!y)
-        *T = z;
+        *T = z; /* empty tree */
     else if (z->data < y->data)
         y->left = z;
     else
@@ -263,10 +271,15 @@ int main(int argc, char **argv) {
     bst_insert2(&root, root, bst_new_node(8));
     bst_insert2(&root, root, bst_new_node(4));
 
+
     printf("Before:\n");
+    printf("height: %d\n", bst_height(root));
     bst_inorder(root);
+
     struct bst_node_s *n = bst_delete(&root, bst_search(root, 7));
+
     printf("After:\n");
+    printf("height: %d\n", bst_height(root));
     bst_inorder(root);
 
     free(n);

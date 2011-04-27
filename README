@@ -111,11 +111,23 @@ DATA STRUCTURES
         int c;
     };
 
-2. Reverse a singly-linked list
+    - 8 bytes: 1 byte for each of a and b, 4 bytes for c, but the compiler
+      takes alignment into account, so the 6 required bytes are aligned a word boundary
+      at 8 bytes.
+        - system-dependent of course.
+        - fetching an aligned word is faster on most processors.
+
+2. (c/data_structures/linked_list.c) Reverse a singly-linked list
 
 3. Given a binary tree, print the nodes at each level.
     - breadth-first search
+        - using a queue instead of a stack
     - write a function to determine the height of the binary tree
+        - it's a very simple function that calculates the number of edges between nodes.
+            height(p)
+                if (!p)
+                    return -1;  // path from root to leaf is N-1, where N is number of nodes in path
+                return MAX(height(p->left), height(p->right)) + 1;
 
 4. Graph theory; Write a function to check if a graph is bipartite (a bigraph).
     - http://en.wikipedia.org/wiki/Bipartite_graph
@@ -128,6 +140,14 @@ DATA STRUCTURES
 
 7. Hash tables.
     - How to avoid collision in a hash table?
+        - keep a linked list for each key in the table so collisions are just added to the
+          list.
+        - remove stale values when another value maps to the same key.
+    - Some problems with hash tables?
+        - choosing an effective hash function can be difficult.
+        - not effective on small number of entries. it's faster to do sequential lookups.
+        - hash table entries are distributed in memory, so it's possible to have a microprocessor
+          cache miss.
 
 8. Implement a BST.
     - how do you check if a binary tree is a binary search tree?
@@ -139,6 +159,11 @@ DATA STRUCTURES
 
 11. (c/data_structures/binary_tree.c) Given a reference to a node in a BST, find its successor.
     - the successor of a node x is the node with the smallest key greater than key[x].
+
+12. find the nth fibonacci number.
+    - f(n) = { f(n-1) + f(n-2) if n > 1,
+               1               if n == 1
+               0               if n == 0 }
 
 Google
 -----------------------------

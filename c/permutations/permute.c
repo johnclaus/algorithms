@@ -45,8 +45,14 @@ void HeapPermute(int n) {
     }
 }
 
+struct foobar {
+    char a, b;
+    int c;
+};
+
 int main(int argc, char **argv) {
     int i, j;
+    printf("%ld\n", sizeof(struct foobar));
 
     for (i = 0; i < N; ++i) {
         A[i] = 'a' + i;

@@ -1,0 +1,29 @@
+reverse linked list
+
+    p -> 1 -> 2 -> 3 -> NULL
+
+    // initialize prev to NULL (note that prev changes over time)
+    prev -> NULL // essentially takes the place of the list-terminating NULL
+
+    // correct order of operations uses the right-hand arg in current line
+    // as the left-hand arg of the next line.
+
+    // part below is done in a while loop until p is NULL
+
+    tmp = p->next (2)
+    p->next = prev (NULL)
+    prev = p (1)
+    p = tmp (2)
+
+    prev -> 1 -> NULL
+    p -> 2 -> 3 -> NULL
+
+    tmp = p->next (3)
+    p->next = prev (1)
+    prev = p (2)
+    p = tmp (3)
+
+    prev -> 2 -> 1 -> NULL
+    p = 3 ->  NULL
+
+    // after all operations, prev is now the reversed list.

@@ -21,6 +21,7 @@ struct graph_s {
     int *colors;
     int *distances;
     int *predecessors;
+    int *d, *f; /* timestamps */
 };
 
 struct queue_s {
@@ -31,7 +32,6 @@ struct queue_s {
 };
 
 static struct queue_s *Q;
-static struct graph_s *graph;
 
 static struct queue_s *create_queue(int n) {
     struct queue_s *q;
@@ -64,7 +64,7 @@ static int is_empty(struct queue_s *q) {
     return (q->tail == q->head);
 }
 
-static void graph_init(void) {
+static struct graph_s *graph_init(void) {
     /*
      * 0 --- 1     2 --- 3
      * |     |   / |   / |
@@ -73,11 +73,15 @@ static void graph_init(void) {
      * 4     5 --- 6 --- 7
      */
 
+    struct graph_s *graph;
+
     graph = (struct graph_s *)malloc(sizeof(struct graph_s));
     graph->vertices = (struct vertex_s **)malloc(sizeof(struct vertex_s)*N);
     graph->colors = (int *)malloc(sizeof(int)*N);
     graph->distances = (int *)malloc(sizeof(int)*N);
     graph->predecessors = (int *)malloc(sizeof(int)*N);
+    graph->d = (int *)malloc(sizeof(int)*N);
+    graph->f = (int *)malloc(sizeof(int)*N);
 
     int n = 2;
     graph->vertices[0] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
@@ -138,6 +142,8 @@ static void graph_init(void) {
     graph->vertices[7]->size = n;
     graph->vertices[7]->adj[0] = 3;
     graph->vertices[7]->adj[1] = 6;
+
+    return graph;
 }
 
 static void BFS(struct graph_s *graph, int s) {
@@ -173,6 +179,47 @@ static void BFS(struct graph_s *graph, int s) {
     free(Q);
 }
 
+static int dfs_time;
+
+static void DFS_visit(struct graph_s *graph, int i) {
+    int j;
+    struct vertex_s *u;
+
+    u = graph->vertices[i];
+    graph->colors[i] = GRAY;
+    graph->d[i] = ++dfs_time;
+
+    for (j = 0; j < u->size; ++j) {
+        if (graph->colors[j] == WHITE) {
+            graph->predecessors[j] = i;
+            DFS_visit(graph, j);
+        }
+    }
+
+    graph->colors[i] = BLACK;
+    graph->f[i] = ++dfs_time;
+}
+
+static void DFS(struct graph_s *graph) {
+    int i;
+
+    for (i = 0; i < N; ++i) {
+        graph->colors[i] = WHITE;
+        graph->predecessors[i] = -1;
+    }
+
+    dfs_time = 0;
+
+    for (i = 0; i < N; ++i) {
+        if (graph->colors[i] == WHITE)
+            DFS_visit(graph, i);
+    }
+
+    for (i = 0; i < N; ++i) {
+        printf("%d, %d\n", graph->d[i], graph->f[i]);
+    }
+}
+
 static void print_path(struct graph_s *graph, int s, int v) {
     if (s == v)
         printf("%d\n", s);
@@ -184,7 +231,7 @@ static void print_path(struct graph_s *graph, int s, int v) {
     }
 }
 
-static void cleanup(void) {
+static void cleanup(struct graph_s *graph) {
     int i;
 
     for (i = 0; i < N; ++i) {
@@ -196,14 +243,19 @@ static void cleanup(void) {
     free(graph->colors);
     free(graph->distances);
     free(graph->predecessors);
+    free(graph->d);
+    free(graph->f);
     free(graph);
 }
 
 int main(int argc, char **argv) {
-    graph_init();
-    BFS(graph, 1);
+    struct graph_s *graph;
+    graph = graph_init();
+
+//    BFS(graph, 1);
+    DFS(graph);
     print_path(graph, 1, 7);
-    cleanup();
+    cleanup(graph);
 
     return 0;
 }

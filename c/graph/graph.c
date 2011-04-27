@@ -148,5 +148,10 @@ int main(int argc, char **argv) {
     free(Q->data);
     free(Q);
 
+    for (i = 0; i < 5; ++i) {
+        free(graph[i]->adj);
+        free(graph[i]);
+    }
+
     return 0;
 }

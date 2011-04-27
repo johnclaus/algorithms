@@ -51,7 +51,8 @@ static int dequeue(struct queue_s **q) {
 
     /* shift queue -- probably not ideal, but I think it's required
      * for implementing a queue in an array. the 0th element should always be
-     * the head of the queue. */
+     * the head of the queue. XXX: check pg. 203 in intro to algorithms for a good
+     * implementation that's used in graph/graph.c */
     for (i = 1; i <= (*q)->last; ++i) {
         j = i-1;
         tmp = (*q)->data[i];

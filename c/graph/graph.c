@@ -42,7 +42,7 @@ static struct queue_s *create_queue(int n) {
     return q;
 }
 
-void enqueue(struct queue_s *q, int x) {
+static void enqueue(struct queue_s *q, int x) {
     q->data[q->tail] = x;
     if (q->tail == q->size)
         q->tail = 0;
@@ -50,7 +50,7 @@ void enqueue(struct queue_s *q, int x) {
         ++q->tail;
 }
 
-int dequeue(struct queue_s *q) {
+static int dequeue(struct queue_s *q) {
     int x;
     x = q->data[q->head];
     if (q->head == q->size)
@@ -60,11 +60,11 @@ int dequeue(struct queue_s *q) {
     return x;
 }
 
-int is_empty(struct queue_s *q) {
+static int is_empty(struct queue_s *q) {
     return (q->tail == q->head);
 }
 
-void graph_init(void) {
+static void graph_init(void) {
     /*
      * 0 --- 1     2 --- 3
      * |     |   / |   / |
@@ -140,7 +140,7 @@ void graph_init(void) {
     graph->vertices[7]->adj[1] = 6;
 }
 
-void BFS(struct graph_s *graph, int s) {
+static void BFS(struct graph_s *graph, int s) {
     /* assumes graph is an adjacency list */
     int i, u, v;
 
@@ -170,15 +170,13 @@ void BFS(struct graph_s *graph, int s) {
     graph->colors[u] = BLACK;
     for (i = 0; i < N; ++i)
         printf("%d\n", graph->distances[i]);
-}
-
-int main(int argc, char **argv) {
-    int i;
-    graph_init();
-    BFS(graph, 1);
 
     free(Q->data);
     free(Q);
+}
+
+static void cleanup(void) {
+    int i;
 
     for (i = 0; i < N; ++i) {
         free(graph->vertices[i]->adj);
@@ -190,6 +188,12 @@ int main(int argc, char **argv) {
     free(graph->distances);
     free(graph->predecessors);
     free(graph);
+}
+
+int main(int argc, char **argv) {
+    graph_init();
+    BFS(graph, 1);
+    cleanup();
 
     return 0;
 }

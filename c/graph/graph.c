@@ -248,8 +248,8 @@ int main(int argc, char **argv) {
     struct graph_s *graph;
     graph = graph_init();
 
-//    BFS(graph, 1);
-    DFS(graph);
+    /*DFS(graph);*/
+    BFS(graph, 1);
     print_path(graph, 1, 7);
     cleanup(graph);
 

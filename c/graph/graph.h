@@ -1,4 +1,7 @@
 struct vertex_s {
+    /* Use a listnode instead of a next vertex because a vertex can be used
+     * multiple times across different adjacency lists and data will get corrupted.
+     * This lets each vertex in graph->vertices have its own adjacency list. */
     struct listnode_s *adj;
     struct vertex_s *predecessor;
     int distance;

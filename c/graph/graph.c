@@ -21,7 +21,7 @@ struct graph_s {
     int *colors;
     int *distances;
     int *predecessors;
-    int *d, *f; /* timestamps */
+    int *d, *f; /* discovery and finishing event timestamps */
 };
 
 struct queue_s {
@@ -213,10 +213,6 @@ static void DFS(struct graph_s *graph) {
     for (i = 0; i < N; ++i) {
         if (graph->colors[i] == WHITE)
             DFS_visit(graph, i);
-    }
-
-    for (i = 0; i < N; ++i) {
-        printf("%d, %d\n", graph->d[i], graph->f[i]);
     }
 }
 

@@ -178,16 +178,17 @@ Google
 8. Given a "window" of size k and an array of size N, find the minimum of each "window"
    as it slides through the array.
     - not sure what the goal is with this problem...
-9. Given a matrix, print it clockwise from the first element to the very inner
-    element.
+
+9. (c/array_manipulation/spiral_print.c)
+   Given a matrix, print it clockwise from the first element to the very inner
+   element.
     - "spiral print a 2D array"
     - Are the dimensions known / passed as arguments?
-    - Seems like graph traversal
 
     [ ]->[ ]->[ ]
                |
                v
-    [ ]->[ ]->[ ]
+    [ ]->[ ]  [ ]
      ^         |
      |         v
     [ ]<-[ ]<-[ ]

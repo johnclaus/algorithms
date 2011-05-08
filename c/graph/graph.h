@@ -7,11 +7,12 @@ struct vertex_s {
     int distance;
     int value;
     int color;
+    int dt, ft; /* discovery and finishing event timestamps */
 };
 
 struct graph_s {
     struct vertex_s **vertices;
-    int *d, *f; /* discovery and finishing event timestamps */
+    int num_vertices;
 };
 
 struct queue_s {

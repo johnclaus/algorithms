@@ -12,6 +12,7 @@
 #define GRAY 1
 #define BLACK 2
 #define N 8
+#define DAG_N 9
 
 static struct queue_s *Q;
 
@@ -46,6 +47,77 @@ static int is_empty(struct queue_s *q) {
     return (q->tail == q->head);
 }
 
+static struct graph_s *dag_init(void) {
+    int i;
+    struct graph_s *graph;
+
+    graph = (struct graph_s *)malloc(sizeof(struct graph_s));
+    graph->vertices = (struct vertex_s **)malloc(sizeof(struct vertex_s)*DAG_N);
+    //graph->num_vertices = DAG_N;
+    graph->num_vertices = N;
+
+    for (i = 0; i < graph->num_vertices; ++i) {
+        graph->vertices[i] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
+        graph->vertices[i]->adj = NULL;
+        graph->vertices[i]->value = i;
+    }
+
+    graph->vertices[0]->value = 7;
+    graph->vertices[1]->value = 5;
+    graph->vertices[2]->value = 3;
+    graph->vertices[3]->value = 11;
+    graph->vertices[4]->value = 8;
+    graph->vertices[5]->value = 2;
+    graph->vertices[6]->value = 9;
+    graph->vertices[7]->value = 10;
+
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[3]);
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[4]);
+
+    push_vertex(&graph->vertices[1]->adj, graph->vertices[3]);
+
+    push_vertex(&graph->vertices[2]->adj, graph->vertices[4]);
+    push_vertex(&graph->vertices[2]->adj, graph->vertices[7]);
+
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[5]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[6]);
+
+    push_vertex(&graph->vertices[4]->adj, graph->vertices[6]);
+
+    /*
+     * Clothing example in CLRS -- uses DAG_N
+     *
+     * 0 -> 1, 7        (boxers -> pants, shoes)
+     * 1 -> 2, 7        (pants -> belt, shoes)
+     * 2 -> 5           (belt -> jacket)
+     * 3 -> 2, 4        (shirt -> belt, tie)
+     * 4 -> 5           (tie -> jacket)
+     * 5 -> NULL        (jacket -> NULL)
+     * 6 -> 7           (socks -> shoes)
+     * 7 -> NULL        (shoes -> NULL)
+     * 8 -> NULL        (watch -> NULL)
+     */
+
+/*
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[1]);
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[7]);
+
+    push_vertex(&graph->vertices[1]->adj, graph->vertices[2]);
+    push_vertex(&graph->vertices[1]->adj, graph->vertices[7]);
+
+    push_vertex(&graph->vertices[2]->adj, graph->vertices[5]);
+
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[2]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[4]);
+
+    push_vertex(&graph->vertices[4]->adj, graph->vertices[5]);
+
+    push_vertex(&graph->vertices[6]->adj, graph->vertices[7]);
+*/
+
+    return graph;
+}
+
 static struct graph_s *graph_init(void) {
     /*
      * 0 --- 1     2 --- 3
@@ -60,10 +132,9 @@ static struct graph_s *graph_init(void) {
 
     graph = (struct graph_s *)malloc(sizeof(struct graph_s));
     graph->vertices = (struct vertex_s **)malloc(sizeof(struct vertex_s)*N);
-    graph->d = (int *)malloc(sizeof(int)*N);
-    graph->f = (int *)malloc(sizeof(int)*N);
+    graph->num_vertices = N;
 
-    for (i = 0; i < N; ++i) {
+    for (i = 0; i < graph->num_vertices; ++i) {
         graph->vertices[i] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
         graph->vertices[i]->adj = NULL;
         graph->vertices[i]->value = i;
@@ -106,9 +177,9 @@ static void BFS(struct graph_s *graph, struct vertex_s *s) {
     struct listnode_s *adj;
     struct vertex_s *u, *v;
 
-    Q = create_queue(N);
+    Q = create_queue(graph->num_vertices);
 
-    for (i = 0; i < N; ++i) {
+    for (i = 0; i < graph->num_vertices; ++i) {
         graph->vertices[i]->color = WHITE;
         graph->vertices[i]->distance = 0;
         graph->vertices[i]->predecessor = NULL;
@@ -135,51 +206,46 @@ static void BFS(struct graph_s *graph, struct vertex_s *s) {
     free(Q);
 }
 
-/*
 static int dfs_time;
+static struct listnode_s *toplist = NULL;
 
-static void DFS_visit(struct graph_s *graph, int i) {
+static void DFS_visit(struct vertex_s *u) {
     int j;
-    struct vertex_s *u;
+    struct listnode_s *n;
+    struct vertex_s *v;
 
-    u = graph->vertices[i];
-    graph->colors[i] = GRAY;
-    graph->d[i] = ++dfs_time;
+    u->color = GRAY;
+    u->dt = ++dfs_time;
 
-    for (j = 0; j < u->size; ++j) {
-        if (graph->colors[j] == WHITE) {
-            graph->predecessors[j] = i;
-            DFS_visit(graph, j);
+    for (n = u->adj; n; n = n->next) {
+        v = n->v;
+        if (v->color == WHITE) {
+            v->predecessor = u;
+            DFS_visit(v);
         }
     }
 
-    graph->colors[i] = BLACK;
-    graph->f[i] = ++dfs_time;
+    u->color = BLACK;
+    u->ft = ++dfs_time;
+
+    push_vertex(&toplist, u);
 }
 
 static void DFS(struct graph_s *graph) {
     int i;
 
-    for (i = 0; i < N; ++i) {
-        graph->colors[i] = WHITE;
-        graph->predecessors[i] = -1;
+    for (i = 0; i < graph->num_vertices; ++i) {
+        graph->vertices[i]->color = WHITE;
+        graph->vertices[i]->predecessor = NULL;
     }
 
     dfs_time = 0;
 
-    for (i = 0; i < N; ++i) {
-        if (graph->colors[i] == WHITE)
-            DFS_visit(graph, i);
+    for (i = 0; i < graph->num_vertices; ++i) {
+        if (graph->vertices[i]->color == WHITE)
+            DFS_visit(graph->vertices[i]);
     }
 }
-*/
-
-/*
-static listnode_s *topological_sort(struct graph_s *graph) {
-    struct listnode_s *head;
-    head = NULL;
-}
-*/
 
 static void print_path(struct graph_s *graph, struct vertex_s *s, struct vertex_s *v) {
     if (s == v)
@@ -196,7 +262,7 @@ static void cleanup(struct graph_s *graph) {
     int i;
     struct listnode_s *adj, *next;
 
-    for (i = 0; i < N; ++i) {
+    for (i = 0; i < graph->num_vertices; ++i) {
         adj = graph->vertices[i]->adj;
         while (adj) {
             next = adj->next;
@@ -207,18 +273,24 @@ static void cleanup(struct graph_s *graph) {
     }
 
     free(graph->vertices);
-    free(graph->d);
-    free(graph->f);
     free(graph);
 }
 
 int main(int argc, char **argv) {
     struct graph_s *graph;
-    graph = graph_init();
+    struct listnode_s *n, *adj;
+    struct vertex_s *u, *v;
 
-//    DFS(graph);
-    BFS(graph, graph->vertices[1]);
-    print_path(graph, graph->vertices[1], graph->vertices[7]);
+    graph = dag_init();
+
+    DFS(graph);
+
+    for (n = toplist; n; n = n->next) {
+        u = n->v;
+        printf("%d (%d/%d)\n", u->value, u->dt, u->ft);
+    }
+//    BFS(graph, graph->vertices[1]);
+//    print_path(graph, graph->vertices[1], graph->vertices[7]);
     cleanup(graph);
 
     return 0;

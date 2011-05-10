@@ -53,8 +53,8 @@ static struct graph_s *dag_init(void) {
 
     graph = (struct graph_s *)malloc(sizeof(struct graph_s));
     graph->vertices = (struct vertex_s **)malloc(sizeof(struct vertex_s)*DAG_N);
-    //graph->num_vertices = DAG_N;
-    graph->num_vertices = N;
+    graph->num_vertices = DAG_N;
+    //graph->num_vertices = N;
 
     for (i = 0; i < graph->num_vertices; ++i) {
         graph->vertices[i] = (struct vertex_s *)malloc(sizeof(struct vertex_s));
@@ -62,6 +62,7 @@ static struct graph_s *dag_init(void) {
         graph->vertices[i]->value = i;
     }
 
+/*
     graph->vertices[0]->value = 7;
     graph->vertices[1]->value = 5;
     graph->vertices[2]->value = 3;
@@ -71,19 +72,20 @@ static struct graph_s *dag_init(void) {
     graph->vertices[6]->value = 9;
     graph->vertices[7]->value = 10;
 
-    push_vertex(&graph->vertices[0]->adj, graph->vertices[3]);
     push_vertex(&graph->vertices[0]->adj, graph->vertices[4]);
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[3]);
 
     push_vertex(&graph->vertices[1]->adj, graph->vertices[3]);
 
-    push_vertex(&graph->vertices[2]->adj, graph->vertices[4]);
     push_vertex(&graph->vertices[2]->adj, graph->vertices[7]);
+    push_vertex(&graph->vertices[2]->adj, graph->vertices[4]);
 
-    push_vertex(&graph->vertices[3]->adj, graph->vertices[5]);
-    push_vertex(&graph->vertices[3]->adj, graph->vertices[6]);
     push_vertex(&graph->vertices[3]->adj, graph->vertices[7]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[6]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[5]);
 
     push_vertex(&graph->vertices[4]->adj, graph->vertices[6]);
+*/
 
     /*
      * Clothing example in CLRS -- uses DAG_N
@@ -99,22 +101,20 @@ static struct graph_s *dag_init(void) {
      * 8 -> NULL        (watch -> NULL)
      */
 
-/*
-    push_vertex(&graph->vertices[0]->adj, graph->vertices[1]);
     push_vertex(&graph->vertices[0]->adj, graph->vertices[7]);
+    push_vertex(&graph->vertices[0]->adj, graph->vertices[1]);
 
-    push_vertex(&graph->vertices[1]->adj, graph->vertices[2]);
     push_vertex(&graph->vertices[1]->adj, graph->vertices[7]);
+    push_vertex(&graph->vertices[1]->adj, graph->vertices[2]);
 
     push_vertex(&graph->vertices[2]->adj, graph->vertices[5]);
 
-    push_vertex(&graph->vertices[3]->adj, graph->vertices[2]);
     push_vertex(&graph->vertices[3]->adj, graph->vertices[4]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[2]);
 
     push_vertex(&graph->vertices[4]->adj, graph->vertices[5]);
 
     push_vertex(&graph->vertices[6]->adj, graph->vertices[7]);
-*/
 
     return graph;
 }
@@ -296,7 +296,17 @@ int main(int argc, char **argv) {
 
     for (n = toplist; n; n = n->next) {
         u = n->v;
-        printf("%d (%d/%d)\n", u->value, u->dt, u->ft);
+        printf("%d (%d/%d)", u->value, u->dt, u->ft);
+
+        if (u->adj)
+            printf(" -> ");
+
+        for (adj = u->adj; adj; adj = adj->next) {
+            printf("%d", adj->v->value);
+            if (adj->next)
+                printf(", ");
+        }
+        printf("\n");
     }
 //    BFS(graph, graph->vertices[1]);
 //    print_path(graph, graph->vertices[1], graph->vertices[7]);

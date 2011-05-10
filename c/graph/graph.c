@@ -292,16 +292,14 @@ int main(int argc, char **argv) {
 
     graph = dag_init();
 
-/*
     DFS(graph);
 
     for (n = toplist; n; n = n->next) {
         u = n->v;
         printf("%d (%d/%d)\n", u->value, u->dt, u->ft);
     }
-*/
-    BFS(graph, graph->vertices[1]);
-    print_path(graph, graph->vertices[1], graph->vertices[6]);
+//    BFS(graph, graph->vertices[1]);
+//    print_path(graph, graph->vertices[1], graph->vertices[7]);
     cleanup(graph);
 
     return 0;

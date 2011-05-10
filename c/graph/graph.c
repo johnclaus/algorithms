@@ -81,6 +81,7 @@ static struct graph_s *dag_init(void) {
 
     push_vertex(&graph->vertices[3]->adj, graph->vertices[5]);
     push_vertex(&graph->vertices[3]->adj, graph->vertices[6]);
+    push_vertex(&graph->vertices[3]->adj, graph->vertices[7]);
 
     push_vertex(&graph->vertices[4]->adj, graph->vertices[6]);
 
@@ -242,8 +243,9 @@ static void DFS(struct graph_s *graph) {
     dfs_time = 0;
 
     for (i = 0; i < graph->num_vertices; ++i) {
-        if (graph->vertices[i]->color == WHITE)
+        if (graph->vertices[i]->color == WHITE) {
             DFS_visit(graph->vertices[i]);
+        }
     }
 }
 
@@ -272,6 +274,13 @@ static void cleanup(struct graph_s *graph) {
         free(graph->vertices[i]);
     }
 
+    adj = toplist;
+    while (adj) {
+        next = adj->next;
+        free(adj);
+        adj = next;
+    }
+
     free(graph->vertices);
     free(graph);
 }
@@ -283,14 +292,16 @@ int main(int argc, char **argv) {
 
     graph = dag_init();
 
+/*
     DFS(graph);
 
     for (n = toplist; n; n = n->next) {
         u = n->v;
         printf("%d (%d/%d)\n", u->value, u->dt, u->ft);
     }
-//    BFS(graph, graph->vertices[1]);
-//    print_path(graph, graph->vertices[1], graph->vertices[7]);
+*/
+    BFS(graph, graph->vertices[1]);
+    print_path(graph, graph->vertices[1], graph->vertices[6]);
     cleanup(graph);
 
     return 0;

@@ -11,4 +11,5 @@
 -module(strrev).
 -export([strrev_by_char/1]).
 
-strrev_by_char(String) -> lists:reverse(String).
+strrev_by_char(String) when is_list(String) ->
+	lists:reverse(String).
